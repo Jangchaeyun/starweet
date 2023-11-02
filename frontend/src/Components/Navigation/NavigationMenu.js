@@ -14,4 +14,44 @@ export const navigation = [
     icon: <HomeIcon />,
     path: "/home",
   },
+  {
+    title: "Explore",
+    icon: <ExploreIcon />,
+    path: "/explore",
+  },
+  {
+    title: "Notification",
+    icon: <NotificationsIcon />,
+    path: "/notification",
+  },
+  {
+    title: "Messages",
+    icon: <MessageIcon />,
+    path: "/messages",
+  },
+  {
+    title: "Lists",
+    icon: <ListAltIcon />,
+    path: "/lists",
+  },
+  {
+    title: "Communities",
+    icon: <GroupIcon />,
+    path: "/communities",
+  },
+  {
+    title: "Verified",
+    icon: <VerifiedIcon />,
+    path: "/verified",
+  },
+  {
+    title: "Profile",
+    icon: <AccountCircleIcon />,
+    path: "/profile",
+  },
+  {
+    title: "More",
+    icon: <PendingIcon />,
+    path: "/more",
+  },
 ];
