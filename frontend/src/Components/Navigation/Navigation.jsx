@@ -1,9 +1,24 @@
 import React from "react";
 import { navigation } from "./NavigationMenu";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Avatar, Button, Menu, MenuItem } from "@mui/material";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 const Navigation = () => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    console.log("logout");
+    handleClose();
+  };
+
   const navigate = useNavigate();
 
   return (
@@ -77,6 +92,45 @@ const Navigation = () => {
           >
             Tweet
           </Button>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <Avatar
+            alt="username"
+            src="https://img.freepik.com/free-photo/cute-ai-generated-cartoon-bunny_23-2150288883.jpg?size=338&ext=jpg&ga=GA1.1.1826414947.1698883200&semt=ais"
+          />
+          <div>
+            <span>EVERYDAY6 </span>
+            <span className="opacity-70">@everyday6</span>
+          </div>
+          <Button
+            id="demo-positioned-button"
+            aria-controls={open ? "demo-positioned-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+          >
+            <MoreHorizIcon />
+          </Button>
+          <Menu
+            id="demo-positioned-menu"
+            aria-labelledby="demo-positioned-button"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+          >
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </Menu>
         </div>
       </div>
     </div>
