@@ -90,7 +90,7 @@ const Navigation = () => {
             }}
             variant="contained"
           >
-            Tweet
+            Starweet
           </Button>
         </div>
       </div>
@@ -102,7 +102,8 @@ const Navigation = () => {
             src="https://img.freepik.com/free-photo/cute-ai-generated-cartoon-bunny_23-2150288883.jpg?size=338&ext=jpg&ga=GA1.1.1826414947.1698883200&semt=ais"
           />
           <div>
-            <span>EVERYDAY6 </span>
+            <span>EVERYDAY6</span>
+            <br />
             <span className="opacity-70">@everyday6</span>
           </div>
           <Button
