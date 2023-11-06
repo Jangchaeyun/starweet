@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import ImageIcon from "@mui/icons-material/Image";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
+import StarweetCard from "./StarweetCard";
 
 const validationSchema = Yup.object().shape({
   content: Yup.string().required("Starweet text is required"),
@@ -44,10 +45,10 @@ const HomeSection = () => {
         <div className="flex space-x-5">
           <Avatar
             alt="username"
-            src="https://img.freepik.com/free-photo/cute-ai-generated-cartoon-bunny_23-2150288883.jpg?size=338&ext=jpg&ga=GA1.1.1826414947.1698883200&semt=ais"
+            src="https://file3.instiz.net/data/cached_img/upload/2019/08/02/2/cbb5df1bafd0642bee1ce64289520108.jpg"
           />
           <div className="w-full">
-            <form>
+            <form onSubmit={formik.handleSubmit}>
               <div>
                 <input
                   type="text"
@@ -88,6 +89,7 @@ const HomeSection = () => {
                       bgcolor: "#1e88e5",
                     }}
                     variant="contained"
+                    type="submit"
                   >
                     Starweet
                   </Button>
@@ -96,6 +98,9 @@ const HomeSection = () => {
             </form>
           </div>
         </div>
+      </section>
+      <section>
+        <StarweetCard />
       </section>
     </div>
   );

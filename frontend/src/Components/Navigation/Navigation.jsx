@@ -99,16 +99,15 @@ const Navigation = () => {
         <div className="flex items-center space-x-3">
           <Avatar
             alt="username"
-            src="https://img.freepik.com/free-photo/cute-ai-generated-cartoon-bunny_23-2150288883.jpg?size=338&ext=jpg&ga=GA1.1.1826414947.1698883200&semt=ais"
+            src="https://file3.instiz.net/data/cached_img/upload/2019/08/02/2/cbb5df1bafd0642bee1ce64289520108.jpg"
           />
           <div>
             <span>EVERYDAY6</span>
-            <br />
-            <span className="opacity-70">@everyday6</span>
+            <span className="opacity-70"> @everyday6</span>
           </div>
           <Button
-            id="demo-positioned-button"
-            aria-controls={open ? "demo-positioned-menu" : undefined}
+            id="basic-button"
+            aria-controls={open ? "basic-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
             onClick={handleClick}
@@ -116,18 +115,12 @@ const Navigation = () => {
             <MoreHorizIcon />
           </Button>
           <Menu
-            id="demo-positioned-menu"
-            aria-labelledby="demo-positioned-button"
+            id="basic-menu"
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
             }}
           >
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
