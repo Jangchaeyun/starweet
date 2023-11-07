@@ -73,6 +73,17 @@ const StarweetCard = () => {
               </Menu>
             </div>
           </div>
+
+          <div className="mt-2">
+            <div className="cursor-pointer">
+              <p>아니 둘 다 얼굴 미쳤네;;;</p>
+              <img
+                className="w-[28rem] border border-gray-400 p-5 rounded-md"
+                src="https://pbs.twimg.com/media/F-UgqEubwAAhbVR?format=jpg&name=900x900"
+                alt=""
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
