@@ -100,7 +100,9 @@ const HomeSection = () => {
         </div>
       </section>
       <section>
-        <StarweetCard />
+        {[1, 1, 1, 1, 1].map((item) => (
+          <StarweetCard />
+        ))}
       </section>
     </div>
   );
