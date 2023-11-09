@@ -90,7 +90,7 @@ const Navigation = () => {
             }}
             variant="contained"
           >
-            Starweet
+            Post
           </Button>
         </div>
       </div>
