@@ -100,6 +100,7 @@ const Navigation = () => {
           <Avatar
             alt="username"
             src="https://file3.instiz.net/data/cached_img/upload/2019/08/02/2/cbb5df1bafd0642bee1ce64289520108.jpg"
+            onClick={() => navigate(`/profile/${5}`)}
           />
           <div>
             <span>EVERYDAY6</span>
