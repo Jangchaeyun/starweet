@@ -1,11 +1,17 @@
 import React from "react";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useNavigate } from "react-router-dom";
-import { Avatar } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 
 const Profile = () => {
   const navigate = useNavigate();
   const handleBack = () => navigate(-1);
+  const handleOpenProfileModel = () => {
+    console.log("opsn profile model");
+  };
+  const handleFollowUser = () => {
+    console.log("follow user");
+  };
   return (
     <div>
       <section className={`z-50 flex items-center sticky top-0 bg-opactiy-95`}>
@@ -31,6 +37,25 @@ const Profile = () => {
             src="https://file3.instiz.net/data/cached_img/upload/2019/08/02/2/cbb5df1bafd0642bee1ce64289520108.jpg"
             sx={{ width: "10rem", height: "10rem", border: "4px solid white" }}
           />
+          {true ? (
+            <Button
+              onClick={handleOpenProfileModel}
+              className="rounded-full"
+              variant="contained"
+              sx={{ borderRadius: "20px" }}
+            >
+              Edit Profile
+            </Button>
+          ) : (
+            <Button
+              onClick={handleFollowUser}
+              className="rounded-full"
+              variant="contained"
+              sx={{ borderRadius: "20px" }}
+            >
+              Follow
+            </Button>
+          )}
         </div>
       </section>
     </div>
