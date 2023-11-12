@@ -1,7 +1,14 @@
 import React from "react";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useNavigate } from "react-router-dom";
-import { Avatar, Button } from "@mui/material";
+import { Avatar, Box, Button, Tab } from "@mui/material";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -11,6 +18,11 @@ const Profile = () => {
   };
   const handleFollowUser = () => {
     console.log("follow user");
+  };
+  const [value, setValue] = React.useState("1");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
   return (
     <div>
@@ -53,10 +65,72 @@ const Profile = () => {
               variant="contained"
               sx={{ borderRadius: "20px" }}
             >
-              Follow
+              {true ? "Follow" : "Unfollow"}
             </Button>
           )}
         </div>
+
+        <div>
+          <div className="flex items-center">
+            <h1 className="font-bold text-lg">EVERYDAY6</h1>
+            {true && (
+              <img
+                className="ml-2 w-5 h-5"
+                src="https://img4.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202212/17/techplus/20221217160031072qlvq.png"
+                alt=""
+              />
+            )}
+          </div>
+          <h1 className="text-gray-500">@everyday6</h1>
+        </div>
+
+        <div className="mt-2 space-y-3">
+          <p>너와 나, 함께하는 이 순간 아름다운 '한 페이지가 될 수 있게'💑</p>
+          <div className="py-1 flex space-x-5">
+            <div className="flex items-center text-gray-500">
+              <BusinessCenterIcon />
+              <p className="ml-2">Entertaiment</p>
+            </div>
+            <div className="flex items-center text-gray-500">
+              <LocationOnIcon />
+              <p className="ml-2">Bucheon City, South Korea</p>
+            </div>
+            <div className="flex items-center text-gray-500">
+              <CalendarMonthIcon />
+              <p className="ml-2">Joined July 2023</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-5">
+            <div className="flex items-center space-x-1 font-semibold">
+              <span>44</span>
+              <span className="text-gray-500">Following</span>
+            </div>
+            <div className="flex items-center space-x-1 font-semibold">
+              <span>2.2M</span>
+              <span className="text-gray-500">Followers</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <Box sx={{ width: "100%" }}>
+          <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+              >
+                <Tab label="Item One" value="1" />
+                <Tab label="Item Two" value="2" />
+                <Tab label="Item Three" value="3" />
+              </TabList>
+            </Box>
+            <TabPanel value="1">Item One</TabPanel>
+            <TabPanel value="2">Item Two</TabPanel>
+            <TabPanel value="3">Item Three</TabPanel>
+          </TabContext>
+        </Box>
       </section>
     </div>
   );
