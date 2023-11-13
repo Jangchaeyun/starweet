@@ -92,7 +92,10 @@ const StarweetCard = () => {
           </div>
 
           <div className="mt-2">
-            <div className="cursor-pointer">
+            <div
+              onClick={() => navigate(`/starweet/${3}`)}
+              className="cursor-pointer"
+            >
               <p className="mb-2 p-0">
                 [ #DAY6_BEHIND ]<br />
                 Young K와 원필도 함께한 후배님들의 3일 차 콘서트🎵 <br />

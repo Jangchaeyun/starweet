@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useNavigate } from "react-router-dom";
 import { Avatar, Box, Button, Tab } from "@mui/material";
@@ -9,8 +9,10 @@ import TabPanel from "@mui/lab/TabPanel";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import StarweetCard from "../HomeSection/StarweetCard";
 
 const Profile = () => {
+  const [tabValue, setTabValue] = useState("1");
   const navigate = useNavigate();
   const handleBack = () => navigate(-1);
   const handleOpenProfileModel = () => {
@@ -19,10 +21,14 @@ const Profile = () => {
   const handleFollowUser = () => {
     console.log("follow user");
   };
-  const [value, setValue] = React.useState("1");
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+    if (newValue === 4) {
+      console.log("likes starweet");
+    } else if (newValue === 1) {
+      console.log("users starweet");
+    }
   };
   return (
     <div>
@@ -113,22 +119,28 @@ const Profile = () => {
         </div>
       </section>
 
-      <section>
+      <section className="py-5">
         <Box sx={{ width: "100%" }}>
-          <TabContext value={value}>
+          <TabContext value={tabValue}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
               <TabList
-                onChange={handleChange}
+                onChange={handleTabChange}
                 aria-label="lab API tabs example"
               >
-                <Tab label="Item One" value="1" />
-                <Tab label="Item Two" value="2" />
-                <Tab label="Item Three" value="3" />
+                <Tab label="Post" value="1" />
+                <Tab label="Replies" value="2" />
+                <Tab label="Media" value="3" />
+                <Tab label="Likes" value="4" />
               </TabList>
             </Box>
-            <TabPanel value="1">Item One</TabPanel>
-            <TabPanel value="2">Item Two</TabPanel>
-            <TabPanel value="3">Item Three</TabPanel>
+            <TabPanel value="1">
+              {[1, 1, 1, 1].map((item) => (
+                <StarweetCard />
+              ))}
+            </TabPanel>
+            <TabPanel value="2">Replies</TabPanel>
+            <TabPanel value="3">Media</TabPanel>
+            <TabPanel value="4">Likes</TabPanel>
           </TabContext>
         </Box>
       </section>

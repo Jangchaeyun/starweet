@@ -5,6 +5,7 @@ import HomeSection from "../HomeSection/HomeSection";
 import RightPart from "../RightPart/RightPart";
 import { Route, Routes } from "react-router-dom";
 import Profile from "../Profile/Profile";
+import StarweetDetails from "../StarweetDetails/StarweetDetails";
 
 const HomePage = () => {
   return (
@@ -20,7 +21,9 @@ const HomePage = () => {
       >
         <Routes>
           <Route path="/" element={<HomeSection />}></Route>
+          <Route path="/home" element={<HomeSection />}></Route>
           <Route path="/profile/:id" element={<Profile />}></Route>
+          <Route path="/starweet/:id" element={<StarweetDetails />}></Route>
         </Routes>
       </Grid>
       <Grid item xs={0} lg={3} className="hidden lg:block w-full relative">
