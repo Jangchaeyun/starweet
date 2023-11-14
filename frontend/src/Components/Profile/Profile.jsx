@@ -10,6 +10,7 @@ import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import StarweetCard from "../HomeSection/StarweetCard";
+import ProfileModal from "./ProfileModal";
 
 const Profile = () => {
   const [tabValue, setTabValue] = useState("1");
@@ -32,7 +33,9 @@ const Profile = () => {
   };
   return (
     <div>
-      <section className={`z-50 flex items-center sticky top-0 bg-opactiy-95`}>
+      <section
+        className={`bg-white z-50 flex items-center sticky top-0 bg-opactiy-95`}
+      >
         <KeyboardBackspaceIcon
           className="cursor-pointer"
           onClick={handleBack}
@@ -143,6 +146,10 @@ const Profile = () => {
             <TabPanel value="4">Likes</TabPanel>
           </TabContext>
         </Box>
+      </section>
+
+      <section>
+        <ProfileModal />
       </section>
     </div>
   );
