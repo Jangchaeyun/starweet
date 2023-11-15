@@ -4,8 +4,9 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useFormik } from "formik";
-import { IconButton, TextField } from "@mui/material";
+import { Avatar, IconButton, TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import "./ProfileModal.css";
 
 const style = {
   position: "absolute",
@@ -18,16 +19,15 @@ const style = {
   boxShadow: 24,
   p: 4,
   outline: "none",
+  borderRadius: "20px",
 };
 
-export default function ProfileModal() {
-  const [open, setOpen] = React.useState(false);
+export default function ProfileModal({ open, handleClose }) {
+  // const [open, setOpen] = React.useState(false);
   const [uploading, setUploading] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
-  const handleSubmit = () => {
-    console.log("handle submit");
+  const handleSubmit = (values) => {
+    console.log("handle submit", values);
   };
 
   const formik = useFormik({
@@ -39,7 +39,7 @@ export default function ProfileModal() {
       backgroundImage: "",
       image: "",
     },
-    onsubmit: handleSubmit,
+    onSubmit: handleSubmit,
   });
 
   const handleImageChange = (event) => {
@@ -52,9 +52,8 @@ export default function ProfileModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
-        open={true}
+        open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -70,8 +69,8 @@ export default function ProfileModal() {
               </div>
               <Button type="submit">Save</Button>
             </div>
-            <div className="overflow-y-scroll overflow-x-hidden h-[80vh]">
-              <div>
+            <div className="hideScrollBar overflow-y-scroll overflow-x-hidden h-[80vh]">
+              <React.Fragment>
                 <div className="w-full">
                   <div className="relative">
                     <img
@@ -87,18 +86,79 @@ export default function ProfileModal() {
                     />
                   </div>
                 </div>
-              </div>
+                <div className="w-full transform -translate-y-20 ml-4 h-[6rem]">
+                  <div className="relative">
+                    <Avatar
+                      sx={{
+                        width: "10rem",
+                        height: "10rem",
+                        border: "4px solid white",
+                      }}
+                      src="https://file3.instiz.net/data/cached_img/upload/2019/08/02/2/cbb5df1bafd0642bee1ce64289520108.jpg"
+                    />
+                    <input
+                      type="file"
+                      className="absolute top-0 left-0 w-[10rem] h-full opacity-0 cursor-pointer"
+                      onChange={handleImageChange}
+                      name="image"
+                    />
+                  </div>
+                </div>
+              </React.Fragment>
               <div className="space-y-3">
                 <TextField
                   fullWidth
                   id="fullName"
                   name="fullName"
-                  label="Full Name"
+                  label="Name"
                   value={formik.values.fullName}
                   onChange={formik.handleChange}
-                  error={formik.touched.name && Boolean(formik.errors.fullName)}
-                  helperText={formik.touched.name && formik.errors.fullName}
+                  error={
+                    formik.touched.fullName && Boolean(formik.errors.fullName)
+                  }
+                  helperText={formik.touched.fullName && formik.errors.fullName}
                 />
+                <TextField
+                  fullWidth
+                  multiline
+                  rows={4}
+                  id="bio"
+                  name="bio"
+                  label="Bio"
+                  value={formik.values.bio}
+                  onChange={formik.handleChange}
+                  error={formik.touched.bio && Boolean(formik.errors.bio)}
+                  helperText={formik.touched.bio && formik.errors.bio}
+                />
+                <TextField
+                  fullWidth
+                  id="website"
+                  name="website"
+                  label="Website"
+                  value={formik.values.website}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.website && Boolean(formik.errors.website)
+                  }
+                  helperText={formik.touched.website && formik.errors.website}
+                />
+                <TextField
+                  fullWidth
+                  id="location"
+                  name="location"
+                  label="Location"
+                  value={formik.values.location}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.location && Boolean(formik.errors.location)
+                  }
+                  helperText={formik.touched.location && formik.errors.location}
+                />
+                <div className="my-3">
+                  <p className="text-lg">Birth date · Edit</p>
+                  <p className="text-2xl">November 12, 2000</p>
+                </div>
+                <p className="py-3 text-lg">Switch to professional</p>
               </div>
             </div>
           </form>
