@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar, Button, Menu, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -8,11 +8,15 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import BarChartIcon from "@mui/icons-material/BarChart";
+import ReplyModal from "./ReplyModal";
 
 const StarweetCard = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const [openReplyNodal, setOpenReplyModal] = useState(false);
+  const handleOpenReplyModel = () => setOpenReplyModal(true);
+  const handleCloseReplyModal = () => setOpenReplyModal(false);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -25,10 +29,6 @@ const StarweetCard = () => {
     handleClose();
   };
 
-  const handleOpenReplyModel = () => {
-    console.log("open model");
-  };
-
   const handleCreateRestarweet = () => {
     console.log("handle create");
   };
@@ -37,7 +37,7 @@ const StarweetCard = () => {
     console.log("handle like tweet");
   };
   return (
-    <div className="">
+    <React.Fragment>
       {/* <div className="flex items-center font-semibold text-gray-700 py-2">
         <RepeatIcon />
         <p>You Retweet</p>
@@ -163,7 +163,10 @@ const StarweetCard = () => {
           </div>
         </div>
       </div>
-    </div>
+      <section>
+        <ReplyModal open={openReplyNodal} handleClose={handleCloseReplyModal} />
+      </section>
+    </React.Fragment>
   );
 };
 
