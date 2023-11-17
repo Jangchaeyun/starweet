@@ -3,8 +3,13 @@ import SearchIcon from "@mui/icons-material/Search";
 import Brightness6Icon from "@mui/icons-material/Brightness6";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Button } from "@mui/material";
+import SubscriptionModal from "../SubscriptionModal/SubscriptionModal";
 
 const RightPart = () => {
+  const [openSubscriptionModel, setOpenSubscriptionModel] =
+    React.useState(false);
+  const handleOpenSubscriptionModel = () => setOpenSubscriptionModel(true);
+  const handleCloseSubscriptionModel = () => setOpenSubscriptionModel(false);
   const handleChangeTheme = () => {
     console.log("handle change theme");
   };
@@ -32,6 +37,7 @@ const RightPart = () => {
         <Button
           variant="contained"
           sx={{ padding: "10px", paddingX: "20px", borderRadius: "25px" }}
+          onClick={handleOpenSubscriptionModel}
         >
           Subscribe
         </Button>
@@ -52,6 +58,12 @@ const RightPart = () => {
             <MoreHorizIcon />
           </div>
         ))}
+      </section>
+      <section>
+        <SubscriptionModal
+          open={openSubscriptionModel}
+          handleClose={handleCloseSubscriptionModel}
+        />
       </section>
     </div>
   );
