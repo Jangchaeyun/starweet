@@ -25,7 +25,6 @@ public class JwtTokenValidator extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String jwt = request.getHeader(JwtConstant.JWT_HEADER);
 
-        // Bearer jwt
         if(jwt != null) {
             jwt = jwt.substring(7);
 
@@ -43,6 +42,7 @@ public class JwtTokenValidator extends OncePerRequestFilter {
             } catch (Exception e) {
                 throw new BadCredentialsException("invalid token...");
             }
+            filterChain.doFilter(request, response);
         }
     }
 }
