@@ -53,8 +53,4 @@ public class AppConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public JwtProvider jwtProvider() {
-        return new JwtProvider();
-    }
 }
