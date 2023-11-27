@@ -3,6 +3,7 @@ package com.starweet.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,5 +33,7 @@ public class Starweet {
 
     private boolean isReply;
     private boolean isStarweet;
+
+    private LocalDateTime CreatedAt;
 
 }
