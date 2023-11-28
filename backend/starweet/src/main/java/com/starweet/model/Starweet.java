@@ -31,6 +31,9 @@ public class Starweet {
     @ManyToOne
     private Starweet replyFor;
 
+    private String image;
+    private String video;
+
     private boolean isReply;
     private boolean isStarweet;
 

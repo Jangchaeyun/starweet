@@ -19,4 +19,8 @@ public interface StarweetService {
     public Starweet removeFromRestarweet(Long starweetId, User user) throws StarweetException, UserException;
 
     public Starweet createdReply(StarweetReplyRequest req, User user) throws StarweetException;
+
+    public List<Starweet> getUserStarweet(User user);
+
+    public List<Starweet> findByLikesContainsUser(User user);
 }

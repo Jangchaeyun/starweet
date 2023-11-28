@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface StarweetRepository extends JpaRepository<Starweet, Long> {
 
-    List<Starweet> finAllByIsStarweetTrueOrderByCreatedAtDesc();
+    List<Starweet> findAllByIsStarweetTrueOrderByCreatedAtDesc();
 
     List<Starweet> findByReStarweetUserContainsOrUser_IdAndIsStarweetTrueOrdreByCreatedAtDesc(User user, Long userId);
 
