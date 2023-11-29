@@ -37,6 +37,6 @@ public class Starweet {
     private boolean isReply;
     private boolean isStarweet;
 
-    private LocalDateTime CreatedAt;
+    private LocalDateTime createdAt;
 
 }

@@ -49,12 +49,20 @@ public class StarweetServiceImplementation implements StarweetService{
 
     @Override
     public Starweet findById(Long starweetId) throws StarweetException {
-        return null;
+        Starweet starweet = starweetRepository.findById(starweetId)
+                .orElseThrow(() -> new StarweetException("Starweet not found with id " + starweetId));
+        return starweet;
     }
 
     @Override
-    public void deleteTwitById(Long twitId, Long userId) throws StarweetException, UserException {
+    public void deleteTwitById(Long starweetId, Long userId) throws StarweetException, UserException {
+        Starweet starweet = findById(starweetId);
 
+        if (!userId.equals(starweet.getUser().getId())) {
+            throw new UserException("you can't delete another user's starweet");
+        }
+
+        starweetRepository.deleteById(starweet.getId());
     }
 
     @Override
@@ -64,16 +72,32 @@ public class StarweetServiceImplementation implements StarweetService{
 
     @Override
     public Starweet createdReply(StarweetReplyRequest req, User user) throws StarweetException {
-        return null;
+       Starweet replyFor = findById(req.getStarweetId());
+
+       Starweet starweet = new Starweet();
+       starweet.setContent(req.getContent());
+       starweet.setCreatedAt(LocalDateTime.now());
+       starweet.setImage(req.getImage());
+       starweet.setUser(user);
+       starweet.setReply(true);
+       starweet.setStarweet(false);
+       starweet.setReplyFor(replyFor);
+
+       Starweet savedReply = starweetRepository.save(starweet);
+
+       starweet.getReplyStarweet().add(savedReply);
+       starweetRepository.save(replyFor);
+
+       return replyFor;
     }
 
     @Override
     public List<Starweet> getUserStarweet(User user) {
-        return null;
+        return starweetRepository.findByRestarweetUserContainsOrUser_IdAndIsStarweetTrueOrderByCreatedAtDesc(user, user.getId());
     }
 
     @Override
     public List<Starweet> findByLikesContainsUser(User user) {
-        return null;
+        return starweetRepository.findByLikesUser_id(user.getId());
     }
 }

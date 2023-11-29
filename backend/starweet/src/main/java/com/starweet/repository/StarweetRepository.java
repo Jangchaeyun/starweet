@@ -11,7 +11,7 @@ public interface StarweetRepository extends JpaRepository<Starweet, Long> {
 
     List<Starweet> findAllByIsStarweetTrueOrderByCreatedAtDesc();
 
-    List<Starweet> findByReStarweetUserContainsOrUser_IdAndIsStarweetTrueOrdreByCreatedAtDesc(User user, Long userId);
+    List<Starweet> findByRestarweetUserContainsOrUser_IdAndIsStarweetTrueOrderByCreatedAtDesc(User user, Long userId);
 
     List<Starweet> findByLikesContainingOrderByCreatedAtDesc(User user);
 

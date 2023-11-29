@@ -14,7 +14,7 @@ public interface StarweetService {
     public Starweet restarweet(Long starweetId, User user) throws UserException, StarweetException;
     public Starweet findById(Long starweetId) throws StarweetException;
 
-    public void deleteTwitById(Long twitId, Long userId) throws StarweetException, UserException;
+    public void deleteTwitById(Long starweetId, Long userId) throws StarweetException, UserException;
 
     public Starweet removeFromRestarweet(Long starweetId, User user) throws StarweetException, UserException;
 
