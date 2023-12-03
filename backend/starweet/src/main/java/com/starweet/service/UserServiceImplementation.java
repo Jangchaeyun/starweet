@@ -67,12 +67,12 @@ public class UserServiceImplementation implements UserService {
     public User followUser(Long userId, User user) throws UserException {
         User followToUser = findUserById(userId);
 
-        if (user.getFollowings().contains(followToUser) && followToUser.getFollowers().contains(user)) {
-            user.getFollowings().remove(followToUser);
+        if (user.getFollowing().contains(followToUser) && followToUser.getFollowers().contains(user)) {
+            user.getFollowing().remove(followToUser);
             followToUser.getFollowers().remove(user);
         }
         else {
-            user.getFollowings().add(followToUser);
+            user.getFollowing().add(followToUser);
             followToUser.getFollowers().add(user);
             userRepository.save(followToUser);
             userRepository.save(user);
