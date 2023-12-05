@@ -43,7 +43,7 @@ public class User {
 
     @JsonIgnore
     @ManyToMany
-    private List<User> following = new ArrayList<>();
+    private List<User> followings = new ArrayList<>();
 }
 
 // +82

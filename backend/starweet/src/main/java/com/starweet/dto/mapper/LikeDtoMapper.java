@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LikeDtoMapper {
-    public static LikeDto likeDto(Like like, User reqUser) {
+    public static LikeDto toLikeDto(Like like, User reqUser) {
         UserDto user = UserDtoMapper.toUserDto(like.getUser());
         UserDto reqUserDto = UserDtoMapper.toUserDto(reqUser);
         StarweetDto starweet = StarweetDtoMapper.toStarweetDto(like.getStarweet(), reqUser);
