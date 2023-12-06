@@ -16,7 +16,7 @@ export const loginUser = (loginData) => async (dispatch) => {
     if (data.jwt) {
       localStorage.setItem("jwt", data.jwt);
     }
-    dispatch({ type: LOGIN_USER_SUCCESS, payload: data });
+    dispatch({ type: LOGIN_USER_SUCCESS, payload: data.jwt });
   } catch (error) {
     console.log("error", error);
     dispatch({ type: LOGIN_USER_FAILURE, payload: error.message });
