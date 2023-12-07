@@ -21,7 +21,7 @@ const HomePage = () => {
         className="px-5 lg:px-9 hidden lg:block w-full relative"
       >
         <Routes>
-          <Route path="/" element={<Authentication />}></Route>
+          <Route path="/" element={<HomeSection />}></Route>
           <Route path="/home" element={<HomeSection />}></Route>
           <Route path="/profile/:id" element={<Profile />}></Route>
           <Route path="/starweet/:id" element={<StarweetDetails />}></Route>
