@@ -10,6 +10,8 @@ import { blue } from "@mui/material/colors";
 import { useFormik } from "formik";
 import React from "react";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../Store/Auth/Action";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is Required"),
@@ -35,12 +37,13 @@ const months = [
 ];
 
 const SignupForm = () => {
+  const dispath = useDispatch();
   const formik = useFormik({
     initialValues: {
       fullName: "",
       email: "",
       password: "",
-      dateOfBirth: {
+      birthDate: {
         day: "",
         month: "",
         year: "",
@@ -48,16 +51,17 @@ const SignupForm = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      const { day, month, year } = values.dateOfBirth;
-      const dateOfBirth = `${year}-${month}-${day}`;
-      values.dateOfBirth = dateOfBirth;
+      const { day, month, year } = values.birthDate;
+      const birthDate = `${year}-${month}-${day}`;
+      values.birthDate = birthDate;
       console.log("form value ", values);
+      dispath(registerUser(values));
     },
   });
 
   const handleDateChange = (name) => (event) => {
-    formik.setFieldValue("dateOfBirth", {
-      ...formik.values.dateOfBirth,
+    formik.setFieldValue("birthDate", {
+      ...formik.values.birthDate,
       [name]: event.target.value,
     });
   };
@@ -114,7 +118,7 @@ const SignupForm = () => {
             name="day"
             onChange={handleDateChange("day")}
             onBlur={formik.handleBlur}
-            value={formik.values.dateOfBirth.day}
+            value={formik.values.birthDate.day}
           >
             {days.map((day) => (
               <MenuItem key={day} value={day}>
@@ -130,7 +134,7 @@ const SignupForm = () => {
             name="month"
             onChange={handleDateChange("month")}
             onBlur={formik.handleBlur}
-            value={formik.values.dateOfBirth.month}
+            value={formik.values.birthDate.month}
           >
             {months.map((month) => (
               <MenuItem key={month.label} value={month.value}>
@@ -146,7 +150,7 @@ const SignupForm = () => {
             name="year"
             onChange={handleDateChange("year")}
             onBlur={formik.handleBlur}
-            value={formik.values.dateOfBirth.year}
+            value={formik.values.birthDate.year}
           >
             {years.map((year) => (
               <MenuItem key={year} value={year}>

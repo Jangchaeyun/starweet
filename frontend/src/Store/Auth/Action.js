@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_BASE_URL } from "../../config/api";
+import { API_BASE_URL } from "../../config/api.js";
 import {
   GET_USER_PROFILE_FAILURE,
   GET_USER_PROFILE_SUCCESS,

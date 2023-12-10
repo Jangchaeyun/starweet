@@ -8,7 +8,7 @@ import { getUserProfile } from "./Store/Auth/Action";
 
 function App() {
   const jwt = localStorage.getItem("jwt");
-  const { auth } = useSelector((store) => store);
+  const { auth } = useSelector(store => store);
   const dispatch = useDispatch();
   useEffect(() => {
     if (jwt) {

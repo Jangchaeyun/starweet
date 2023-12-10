@@ -13,7 +13,7 @@ import java.util.List;
 public class UserServiceImplementation implements UserService {
     @Autowired
     private UserRepository userRepository;
-
+    
     private JwtProvider jwtProvider;
 
     @Override
