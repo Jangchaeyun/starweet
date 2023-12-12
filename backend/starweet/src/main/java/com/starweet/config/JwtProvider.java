@@ -19,7 +19,7 @@ public class JwtProvider {
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + 86400000))
                 .claim("email", auth.getName())
-                .signWith(SignatureAlgorithm.HS256, key)
+                .signWith(key)
                 .compact();
 
         return jwt;
@@ -27,8 +27,7 @@ public class JwtProvider {
 
     public String getEmailFromToken(String jwt) {
         jwt = jwt.substring(7);
-
-        Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(jwt).getBody();
+        Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
 
         String email = String.valueOf(claims.get("email"));
 
