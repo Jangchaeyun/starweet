@@ -5,14 +5,18 @@ import Authentication from "./Components/Authentication/Authentication";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserProfile } from "./Store/Auth/Action";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const jwt = localStorage.getItem("jwt");
-  const { auth } = useSelector(store => store);
+  const { auth } = useSelector((store) => store);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (jwt) {
       dispatch(getUserProfile(jwt));
+      navigate("/");
     }
   }, [auth.jwt]);
   return (

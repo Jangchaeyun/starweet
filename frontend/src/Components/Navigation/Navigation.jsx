@@ -3,9 +3,14 @@ import { navigation } from "./NavigationMenu";
 import { useNavigate } from "react-router-dom";
 import { Avatar, Button, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { logout } from "../../Store/Auth/Action";
 
 const Navigation = () => {
+  const { auth } = useSelector((store) => store);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispath = useDispatch();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -17,6 +22,7 @@ const Navigation = () => {
   const handleLogout = () => {
     console.log("logout");
     handleClose();
+    dispath(logout());
   };
 
   const navigate = useNavigate();
@@ -104,8 +110,11 @@ const Navigation = () => {
             onClick={() => navigate(`/profile/${5}`)}
           />
           <div>
-            <span>EVERYDAY6</span>
-            <span className="opacity-70"> @everyday6</span>
+            <p>{auth.user?.fullName}</p>
+            <span className="opacity-70">
+              {" "}
+              @{auth.user?.fullName.split(" ").join("_").toLowerCase()}
+            </span>
           </div>
           <Button
             id="basic-button"
