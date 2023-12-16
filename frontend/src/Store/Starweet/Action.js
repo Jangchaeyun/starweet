@@ -113,7 +113,7 @@ export const deleteStarweet = (starweetId) => async (dispatch) => {
   try {
     const { data } = await api.get(`/api/starweet/${starweetId}`);
     console.log("deleted starweet : ", data);
-    dispatch({ type: STARWEET_DELETE_SUCCESS, payload: data });
+    dispatch({ type: STARWEET_DELETE_SUCCESS, payload: starweetId });
   } catch (error) {
     console.log("catch error - ", error);
     dispatch({ type: STARWEET_DELETE_FAILURE, payload: error.message });

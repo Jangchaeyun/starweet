@@ -1,6 +1,10 @@
 import axios from "axios";
-import { API_BASE_URL } from "../../config/api.js";
+import { API_BASE_URL, api } from "../../config/api.js";
 import {
+  FIND_USER_BY_ID_FAILURE,
+  FIND_USER_BY_ID_REQUEST,
+  FOLLOW_USER_FAILURE,
+  FOLLOW_USER_REQUEST,
   GET_USER_PROFILE_FAILURE,
   GET_USER_PROFILE_SUCCESS,
   LOGIN_USER_FAILURE,
@@ -8,6 +12,8 @@ import {
   LOGOUT,
   REGISTER_USER_FAILURE,
   REGISTER_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
+  UPDATE_USER_REQUEST,
 } from "./ActionType";
 
 export const loginUser = (loginData) => async (dispatch) => {
@@ -55,6 +61,39 @@ export const getUserProfile = (jwt) => async (dispatch) => {
   } catch (error) {
     console.log("error", error);
     dispatch({ type: GET_USER_PROFILE_FAILURE, payload: error.message });
+  }
+};
+
+export const findUserById = (userId) => async (dispatch) => {
+  try {
+    const { data } = await api.get(`/api/users/${userId}`);
+
+    dispatch({ type: FIND_USER_BY_ID_REQUEST, payload: data });
+  } catch (error) {
+    console.log("error", error);
+    dispatch({ type: FIND_USER_BY_ID_FAILURE, payload: error.message });
+  }
+};
+
+export const updateUserProfile = (reqData) => async (dispatch) => {
+  try {
+    const { data } = await api.put(`/api/users/update`, reqData);
+    console.log("updated user ", data);
+    dispatch({ type: UPDATE_USER_REQUEST, payload: data });
+  } catch (error) {
+    console.log("error", error);
+    dispatch({ type: UPDATE_USER_FAILURE, payload: error.message });
+  }
+};
+
+export const followUserAction = (userId) => async (dispatch) => {
+  try {
+    const { data } = await api.put(`/api/users/update/${userId}/follow`);
+    console.log("followed user ", data);
+    dispatch({ type: FOLLOW_USER_REQUEST, payload: data });
+  } catch (error) {
+    console.log("error", error);
+    dispatch({ type: FOLLOW_USER_FAILURE, payload: error.message });
   }
 };
 
