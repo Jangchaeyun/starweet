@@ -30,7 +30,7 @@ const initialState = {
   starweet: null,
 };
 
-const starweetReducer = (state = initialState, action) => {
+export const starweetReducer = (state = initialState, action) => {
   switch (action.type) {
     case STARWEET_CREATE_REQUEST:
     case STARWEET_DELETE_REQUEST:

@@ -1,11 +1,13 @@
 import { Avatar, Button } from "@mui/material";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import ImageIcon from "@mui/icons-material/Image";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import StarweetCard from "./StarweetCard";
+import { getAllStarweets } from "../../Store/Starweet/Action";
 
 const validationSchema = Yup.object().shape({
   content: Yup.string().required("Starweet text is required"),
@@ -14,10 +16,15 @@ const validationSchema = Yup.object().shape({
 const HomeSection = () => {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = (values) => {
     console.log("values ", values);
   };
+
+  useEffect(() => {
+    dispatch(getAllStarweets());
+  }, []);
 
   const formik = useFormik({
     initialValues: {
