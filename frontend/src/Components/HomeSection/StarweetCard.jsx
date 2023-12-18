@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Avatar, Button, Menu, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import RepeatIcon from "@mui/icons-material/Repeat";
@@ -9,14 +10,16 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import ReplyModal from "./ReplyModal";
+import { likeStarweet } from "../../Store/Starweet/Action";
 
-const StarweetCard = () => {
+const StarweetCard = ({ item }) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [openReplyNodal, setOpenReplyModal] = useState(false);
   const handleOpenReplyModel = () => setOpenReplyModal(true);
   const handleCloseReplyModal = () => setOpenReplyModal(false);
+  const dispatch = useDispatch();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -34,6 +37,7 @@ const StarweetCard = () => {
   };
 
   const handleLikestarweet = () => {
+    dispatch(likeStarweet);
     console.log("handle like tweet");
   };
   return (
@@ -47,13 +51,15 @@ const StarweetCard = () => {
           onClick={() => navigate(`profile/${6}`)}
           className="cursor-pointer"
           alt="username"
-          src="https://pbs.twimg.com/profile_images/1685848528021790720/ZAwTwIj4_400x400.png"
+          src={item.image}
         />
         <div className="w-full">
           <div className="flex justify-between items-center">
             <div className="flex cursor-pointer items-center space-x-2">
-              <span className="font-semibold">DAY6</span>
-              <span className="text-gray-600">@day6official · Nov 5</span>
+              <span className="font-semibold">{item.user.fullName}</span>
+              <span className="text-gray-600">
+                @{item.user.fullName.split("").join("_").toLowerCase()} · Nov 5
+              </span>
               <img
                 className="ml-2 w-5 h-5"
                 src="https://img4.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202212/17/techplus/20221217160031072qlvq.png"
@@ -96,16 +102,10 @@ const StarweetCard = () => {
               onClick={() => navigate(`/starweet/${3}`)}
               className="cursor-pointer"
             >
-              <p className="mb-2 p-0">
-                [ #DAY6_BEHIND ]<br />
-                Young K와 원필도 함께한 후배님들의 3일 차 콘서트🎵 <br />
-                무대가 더욱 그리웠던 순간🥹 <br />
-                데이식스도 곧 완전체로 돌아올게요🤟🏻
-                <br /> #DAY6 #데이식스 #YoungK #원필 #WONPIL @XH_official
-              </p>
+              <p className="mb-2 p-0">{item.content}</p>
               <img
                 className="w-[28rem] border border-gray-400 p-5 rounded-md"
-                src="https://pbs.twimg.com/media/F-K1Z69bAAApsHR?format=jpg&name=large"
+                src={item.image}
                 alt=""
               />
             </div>
@@ -115,36 +115,36 @@ const StarweetCard = () => {
                   className="cursor-pointer"
                   onClick={handleOpenReplyModel}
                 />
-                <p>347</p>
+                <p>{item.totalReplies}</p>
               </div>
               <div
                 className={`${
-                  true ? "text-green-600" : "text-gray-600"
+                  false ? "text-green-600" : "text-gray-600"
                 } space-x-3 flex items-center`}
               >
                 <RepeatIcon
                   onClick={handleCreateRestarweet}
                   className="cursor-pointer"
                 />
-                <p>9K</p>
+                <p>{item.totalRestarweets}</p>
               </div>
               <div
                 className={`${
-                  true ? "text-pink-600" : "text-gray-600"
+                  false ? "text-pink-600" : "text-gray-600"
                 } space-x-3 flex items-center`}
               >
-                {true ? (
-                  <FavoriteIcon
-                    onClick={handleLikestarweet}
-                    className="cursor-pointer"
-                  />
-                ) : (
+                {false ? (
                   <FavoriteBorderIcon
                     onClick={handleLikestarweet}
                     className="cursor-pointer"
                   />
+                ) : (
+                  <FavoriteIcon
+                    onClick={handleLikestarweet}
+                    className="cursor-pointer"
+                  />
                 )}
-                <p>14K</p>
+                <p>{item.totalLikes}</p>
               </div>
               <div className="space-x-3 flex items-center text-gray-600">
                 <BarChartIcon

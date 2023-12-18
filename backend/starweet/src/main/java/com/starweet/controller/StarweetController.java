@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/starweets/")
+@RequestMapping("/api/starweets")
 public class StarweetController {
     @Autowired
     private StarweetService starweetService;
@@ -72,8 +72,8 @@ public class StarweetController {
 
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
-    @DeleteMapping("/")
-    public ResponseEntity<List<StarweetDto>> getAllStarweets(@PathVariable Long starweetId, @RequestHeader("Authorization") String jwt) throws UserException, StarweetException {
+    @GetMapping("/")
+    public ResponseEntity<List<StarweetDto>> getAllStarweets(@RequestHeader("Authorization") String jwt) throws UserException, StarweetException {
         User user = userService.findUserProfileByJwt(jwt);
         List<Starweet> starweets = starweetService.findAllStarweet();
         List<StarweetDto> starweetDtos = StarweetDtoMapper.toStarweetDtos(starweets, user);

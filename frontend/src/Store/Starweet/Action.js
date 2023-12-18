@@ -1,10 +1,10 @@
-import { Axios } from "axios";
-import { api } from "../../config/api";
+import { API_BASE_URL, api } from "../../config/api";
 import {
   FIND_STARWEET_BY_ID_FAILURE,
   FIND_STARWEET_BY_ID__SUCCESS,
   GET_ALL_STARWEETS_FAILURE,
   GET_ALL_STARWEETS_REQUEST,
+  GET_ALL_STARWEETS_SUCCESS,
   GET_USERS_STARWEET_FAILURE,
   GET_USERS_STARWEET_SUCCESS,
   LIKE_STARWEET_FAILURE,
@@ -23,9 +23,9 @@ import {
 
 export const getAllStarweets = () => async (dispatch) => {
   try {
-    const { data } = await api.get("/api/starweets/");
+    const { data } = await api.get(`${API_BASE_URL}/api/starweets/`);
     console.log("get all starweets : ", data);
-    dispatch({ type: GET_ALL_STARWEETS_REQUEST, payload: data });
+    dispatch({ type: GET_ALL_STARWEETS_SUCCESS, payload: data });
   } catch (error) {
     console.log("catch error - ", error);
     dispatch({ type: GET_ALL_STARWEETS_FAILURE, payload: error.message });

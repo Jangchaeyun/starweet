@@ -85,7 +85,7 @@ public class StarweetServiceImplementation implements StarweetService{
 
        Starweet savedReply = starweetRepository.save(starweet);
 
-       starweet.getReplyStarweet().add(savedReply);
+       replyFor.getReplyStarweet().add(savedReply);
        starweetRepository.save(replyFor);
 
        return replyFor;

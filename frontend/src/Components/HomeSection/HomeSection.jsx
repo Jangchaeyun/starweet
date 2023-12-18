@@ -1,7 +1,7 @@
 import { Avatar, Button } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import ImageIcon from "@mui/icons-material/Image";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
@@ -17,6 +17,8 @@ const HomeSection = () => {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const dispatch = useDispatch();
+  const { starweet } = useSelector((store) => store);
+  console.log("starweet", starweet);
 
   const handleSubmit = (values) => {
     console.log("values ", values);
@@ -107,8 +109,8 @@ const HomeSection = () => {
         </div>
       </section>
       <section>
-        {[1, 1, 1, 1, 1].map((item) => (
-          <StarweetCard />
+        {starweet.starweets.map((item) => (
+          <StarweetCard item={item} />
         ))}
       </section>
     </div>
