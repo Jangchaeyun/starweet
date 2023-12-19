@@ -3,7 +3,6 @@ import {
   FIND_STARWEET_BY_ID_FAILURE,
   FIND_STARWEET_BY_ID__SUCCESS,
   GET_ALL_STARWEETS_FAILURE,
-  GET_ALL_STARWEETS_REQUEST,
   GET_ALL_STARWEETS_SUCCESS,
   GET_USERS_STARWEET_FAILURE,
   GET_USERS_STARWEET_SUCCESS,
@@ -100,7 +99,7 @@ export const createReStarweet = (starweetId) => async (dispatch) => {
 
 export const likeStarweet = (starweetId) => async (dispatch) => {
   try {
-    const { data } = await api.get(`/api/${starweetId}/like`);
+    const { data } = await api.post(`${API_BASE_URL}/api/${starweetId}/like`);
     console.log("like starweet : ", data);
     dispatch({ type: LIKE_STARWEET_SUCCESS, payload: data });
   } catch (error) {

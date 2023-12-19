@@ -26,7 +26,7 @@ const HomeSection = () => {
 
   useEffect(() => {
     dispatch(getAllStarweets());
-  }, []);
+  }, [starweet.likedStarweets]);
 
   const formik = useFormik({
     initialValues: {

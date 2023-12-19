@@ -5,12 +5,12 @@ import { useDispatch } from "react-redux";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import RepeatIcon from "@mui/icons-material/Repeat";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import ReplyModal from "./ReplyModal";
 import { likeStarweet } from "../../Store/Starweet/Action";
+import { FavoriteOutlined } from "@mui/icons-material";
 
 const StarweetCard = ({ item }) => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const StarweetCard = ({ item }) => {
   };
 
   const handleLikestarweet = () => {
-    dispatch(likeStarweet);
+    dispatch(likeStarweet(item.id));
     console.log("handle like tweet");
   };
   return (
@@ -58,7 +58,7 @@ const StarweetCard = ({ item }) => {
             <div className="flex cursor-pointer items-center space-x-2">
               <span className="font-semibold">{item.user.fullName}</span>
               <span className="text-gray-600">
-                @{item.user.fullName.split("").join("_").toLowerCase()} · Nov 5
+                @{item.user.fullName.split(" ").join("_").toLowerCase()} · Nov 5
               </span>
               <img
                 className="ml-2 w-5 h-5"
@@ -130,11 +130,11 @@ const StarweetCard = ({ item }) => {
               </div>
               <div
                 className={`${
-                  false ? "text-pink-600" : "text-gray-600"
+                  item.liked ? "text-pink-600" : "text-gray-600"
                 } space-x-3 flex items-center`}
               >
-                {false ? (
-                  <FavoriteBorderIcon
+                {item.liked ? (
+                  <FavoriteOutlined
                     onClick={handleLikestarweet}
                     className="cursor-pointer"
                   />

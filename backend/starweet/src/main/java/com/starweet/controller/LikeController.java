@@ -23,7 +23,7 @@ public class LikeController {
     @Autowired
     private LikeService likeService;
 
-    @PostMapping("/{starweetId}/likes")
+    @PostMapping("/{starweetId}/like")
     public ResponseEntity<LikeDto> likeStarweet(@PathVariable Long starweetId, @RequestHeader("Authorization") String jwt) throws UserException, StarweetException {
         User user = userService.findUserProfileByJwt(jwt);
         Like like = likeService.likeStarweet(starweetId, user);
