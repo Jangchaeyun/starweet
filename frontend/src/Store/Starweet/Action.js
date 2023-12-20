@@ -77,7 +77,10 @@ export const createStarweet = (starweetData) => async (dispatch) => {
 
 export const createStarweetReply = (starweetData) => async (dispatch) => {
   try {
-    const { data } = await api.post(`/api/starweets/reply`, starweetData);
+    const { data } = await api.post(
+      `${API_BASE_URL}/api/starweets/reply`,
+      starweetData
+    );
     console.log("reply starweet : ", data);
     dispatch({ type: REPLY_STARWEET_SUCCESS, payload: data });
   } catch (error) {
@@ -88,7 +91,9 @@ export const createStarweetReply = (starweetData) => async (dispatch) => {
 
 export const createReStarweet = (starweetId) => async (dispatch) => {
   try {
-    const { data } = await api.get(`/api/starweets/${starweetId}/restarweet`);
+    const { data } = await api.put(
+      `${API_BASE_URL}/api/starweets/${starweetId}/restarweet`
+    );
     console.log("Restarweet : ", data);
     dispatch({ type: RESTARWEET_SUCCESS, payload: data });
   } catch (error) {

@@ -5,10 +5,12 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import ImageIcon from "@mui/icons-material/Image";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import { useFormik } from "formik";
+import { createStarweetReply } from "../../Store/Starweet/Action";
 
 const style = {
   position: "absolute",
@@ -24,11 +26,13 @@ const style = {
   borderRadius: 4,
 };
 
-export default function ReplyModal({ handleClose, open }) {
+export default function ReplyModal({ handleClose, open, item }) {
   const [uploadingImage, setUploadingImage] = React.useState(false);
   const [selectedImage, setSelectedImage] = React.useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = (values) => {
+    dispatch(createStarweetReply(values));
     console.log("handle submit ", values);
   };
 
@@ -36,7 +40,7 @@ export default function ReplyModal({ handleClose, open }) {
     initialValues: {
       content: "",
       image: "",
-      starweetId: 4,
+      starweetId: item.id,
     },
     onSubmit: handleSubmit,
   });

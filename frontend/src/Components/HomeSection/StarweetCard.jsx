@@ -9,7 +9,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import ReplyModal from "./ReplyModal";
-import { likeStarweet } from "../../Store/Starweet/Action";
+import { createReStarweet, likeStarweet } from "../../Store/Starweet/Action";
 import { FavoriteOutlined } from "@mui/icons-material";
 
 const StarweetCard = ({ item }) => {
@@ -33,6 +33,7 @@ const StarweetCard = ({ item }) => {
   };
 
   const handleCreateRestarweet = () => {
+    dispatch(createReStarweet(item.id));
     console.log("handle create");
   };
 
@@ -119,7 +120,7 @@ const StarweetCard = ({ item }) => {
               </div>
               <div
                 className={`${
-                  false ? "text-green-600" : "text-gray-600"
+                  item.restarweet ? "text-green-600" : "text-gray-600"
                 } space-x-3 flex items-center`}
               >
                 <RepeatIcon
@@ -164,7 +165,11 @@ const StarweetCard = ({ item }) => {
         </div>
       </div>
       <section>
-        <ReplyModal open={openReplyNodal} handleClose={handleCloseReplyModal} />
+        <ReplyModal
+          item={item}
+          open={openReplyNodal}
+          handleClose={handleCloseReplyModal}
+        />
       </section>
     </React.Fragment>
   );
