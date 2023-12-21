@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import StarweetCard from "../HomeSection/StarweetCard";
 import { Divider } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { findStarweetsById } from "../../Store/Starweet/Action";
 
 const StarweetDetails = () => {
   const navigate = useNavigate();
   const handleBack = () => navigate(-1);
+  const dispatch = useDispatch();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(findStarweetsById(id));
+    }
+  });
 
   return (
     <React.Fragment>

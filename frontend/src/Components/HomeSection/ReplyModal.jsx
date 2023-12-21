@@ -40,7 +40,7 @@ export default function ReplyModal({ handleClose, open, item }) {
     initialValues: {
       content: "",
       image: "",
-      starweetId: item.id,
+      starweetId: item?.id,
     },
     onSubmit: handleSubmit,
   });

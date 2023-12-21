@@ -33,12 +33,12 @@ const StarweetCard = ({ item }) => {
   };
 
   const handleCreateRestarweet = () => {
-    dispatch(createReStarweet(item.id));
+    dispatch(createReStarweet(item?.id));
     console.log("handle create");
   };
 
   const handleLikestarweet = () => {
-    dispatch(likeStarweet(item.id));
+    dispatch(likeStarweet(item?.id));
     console.log("handle like tweet");
   };
   return (
@@ -49,17 +49,18 @@ const StarweetCard = ({ item }) => {
       </div> */}
       <div className="flex space-x-5">
         <Avatar
-          onClick={() => navigate(`profile/${6}`)}
+          onClick={() => navigate(`profile/${item?.user.id}`)}
           className="cursor-pointer"
           alt="username"
-          src={item.image}
+          src={item?.image}
         />
         <div className="w-full">
           <div className="flex justify-between items-center">
             <div className="flex cursor-pointer items-center space-x-2">
-              <span className="font-semibold">{item.user.fullName}</span>
+              <span className="font-semibold">{item?.user?.fullName}</span>
               <span className="text-gray-600">
-                @{item.user.fullName.split(" ").join("_").toLowerCase()} · Nov 5
+                @{item?.user?.fullName.split(" ").join("_").toLowerCase()} · Nov
+                5
               </span>
               <img
                 className="ml-2 w-5 h-5"
@@ -100,13 +101,13 @@ const StarweetCard = ({ item }) => {
 
           <div className="mt-2">
             <div
-              onClick={() => navigate(`/starweet/${3}`)}
+              onClick={() => navigate(`/starweet/${item?.id}`)}
               className="cursor-pointer"
             >
-              <p className="mb-2 p-0">{item.content}</p>
+              <p className="mb-2 p-0">{item?.content}</p>
               <img
                 className="w-[28rem] border border-gray-400 p-5 rounded-md"
-                src={item.image}
+                src={item?.image}
                 alt=""
               />
             </div>
@@ -116,25 +117,25 @@ const StarweetCard = ({ item }) => {
                   className="cursor-pointer"
                   onClick={handleOpenReplyModel}
                 />
-                <p>{item.totalReplies}</p>
+                <p>{item?.totalReplies}</p>
               </div>
               <div
                 className={`${
-                  item.restarweet ? "text-green-600" : "text-gray-600"
+                  item?.restarweet ? "text-green-600" : "text-gray-600"
                 } space-x-3 flex items-center`}
               >
                 <RepeatIcon
                   onClick={handleCreateRestarweet}
                   className="cursor-pointer"
                 />
-                <p>{item.totalRestarweets}</p>
+                <p>{item?.totalRestarweets}</p>
               </div>
               <div
                 className={`${
-                  item.liked ? "text-pink-600" : "text-gray-600"
+                  item?.liked ? "text-pink-600" : "text-gray-600"
                 } space-x-3 flex items-center`}
               >
-                {item.liked ? (
+                {item?.liked ? (
                   <FavoriteOutlined
                     onClick={handleLikestarweet}
                     className="cursor-pointer"
@@ -145,7 +146,7 @@ const StarweetCard = ({ item }) => {
                     className="cursor-pointer"
                   />
                 )}
-                <p>{item.totalLikes}</p>
+                <p>{item?.totalLikes}</p>
               </div>
               <div className="space-x-3 flex items-center text-gray-600">
                 <BarChartIcon
