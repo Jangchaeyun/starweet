@@ -31,8 +31,10 @@ export default function ReplyModal({ handleClose, open, item }) {
   const [selectedImage, setSelectedImage] = React.useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleSubmit = (values) => {
     dispatch(createStarweetReply(values));
+    handleClose();
     console.log("handle submit ", values);
   };
 

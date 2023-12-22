@@ -3,7 +3,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useNavigate, useParams } from "react-router-dom";
 import StarweetCard from "../HomeSection/StarweetCard";
 import { Divider } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { findStarweetsById } from "../../Store/Starweet/Action";
 
 const StarweetDetails = () => {
@@ -11,12 +11,13 @@ const StarweetDetails = () => {
   const handleBack = () => navigate(-1);
   const dispatch = useDispatch();
   const { id } = useParams();
+  const { starweet } = useSelector((store) => store);
 
   useEffect(() => {
     if (id) {
       dispatch(findStarweetsById(id));
     }
-  });
+  }, []);
 
   return (
     <React.Fragment>
@@ -31,13 +32,13 @@ const StarweetDetails = () => {
       </section>
 
       <section>
-        <StarweetCard />
+        <StarweetCard item={starweet.starweet} />
         <Divider sx={{ margin: "2rem 0rem" }} />
       </section>
 
       <section>
-        {[1, 1, 1].map((item) => (
-          <StarweetCard />
+        {starweet.starweet.replyStarweets.map((item) => (
+          <StarweetCard item={item} />
         ))}
       </section>
     </React.Fragment>

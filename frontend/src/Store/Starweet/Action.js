@@ -33,7 +33,9 @@ export const getAllStarweets = () => async (dispatch) => {
 
 export const getUserStarweet = (userId) => async (dispatch) => {
   try {
-    const { data } = await api.get(`/api/starweets/user/${userId}`);
+    const { data } = await api.get(
+      `${API_BASE_URL}/api/starweets/user/${userId}`
+    );
     console.log("get user starweets : ", data);
     dispatch({ type: GET_USERS_STARWEET_SUCCESS, payload: data });
   } catch (error) {
@@ -44,7 +46,9 @@ export const getUserStarweet = (userId) => async (dispatch) => {
 
 export const findStarweetsByLikeContaineUser = (userId) => async (dispatch) => {
   try {
-    const { data } = await api.get(`/api/starweets/user/${userId}/likes`);
+    const { data } = await api.get(
+      `${API_BASE_URL}/api/starweets/user/${userId}/likes`
+    );
     console.log("user like starweets : ", data);
     dispatch({ type: USER_LIKE_STARWEET_SUCCESS, payload: data });
   } catch (error) {
@@ -55,7 +59,9 @@ export const findStarweetsByLikeContaineUser = (userId) => async (dispatch) => {
 
 export const findStarweetsById = (starweetId) => async (dispatch) => {
   try {
-    const { data } = await api.get(`/api/starweets/${starweetId}`);
+    const { data } = await api.get(
+      `${API_BASE_URL}/api/starweets/${starweetId}`
+    );
     console.log("find starweet by id : ", data);
     dispatch({ type: FIND_STARWEET_BY_ID__SUCCESS, payload: data });
   } catch (error) {
@@ -66,7 +72,10 @@ export const findStarweetsById = (starweetId) => async (dispatch) => {
 
 export const createStarweet = (starweetData) => async (dispatch) => {
   try {
-    const { data } = await api.post(`/api/starweets/create`, starweetData);
+    const { data } = await api.post(
+      `${API_BASE_URL}/api/starweets/create`,
+      starweetData
+    );
     console.log("created starweet : ", data);
     dispatch({ type: STARWEET_CREATE_SUCCESS, payload: data });
   } catch (error) {
@@ -115,7 +124,9 @@ export const likeStarweet = (starweetId) => async (dispatch) => {
 
 export const deleteStarweet = (starweetId) => async (dispatch) => {
   try {
-    const { data } = await api.get(`/api/starweet/${starweetId}`);
+    const { data } = await api.get(
+      `${API_BASE_URL}/api/starweet/${starweetId}`
+    );
     console.log("deleted starweet : ", data);
     dispatch({ type: STARWEET_DELETE_SUCCESS, payload: starweetId });
   } catch (error) {
