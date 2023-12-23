@@ -7,7 +7,8 @@ import ImageIcon from "@mui/icons-material/Image";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import StarweetCard from "./StarweetCard";
-import { getAllStarweets } from "../../Store/Starweet/Action";
+import { createStarweet, getAllStarweets } from "../../Store/Starweet/Action";
+import { uploadToCloudnary } from "../../Utils/uploadToCloudnary";
 
 const validationSchema = Yup.object().shape({
   content: Yup.string().required("Starweet text is required"),
@@ -20,8 +21,11 @@ const HomeSection = () => {
   const { starweet } = useSelector((store) => store);
   console.log("starweet", starweet);
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, actions) => {
+    dispatch(createStarweet(values));
+    actions.resetForm();
     console.log("values ", values);
+    setSelectedImage("");
   };
 
   useEffect(() => {
@@ -32,14 +36,15 @@ const HomeSection = () => {
     initialValues: {
       content: "",
       image: "",
+      isStarweet: true,
     },
     onSubmit: handleSubmit,
     validationSchema,
   });
 
-  const handleSelectImage = (event) => {
+  const handleSelectImage = async (event) => {
     setUploadingImage(true);
-    const imgUrl = event.target.files[0];
+    const imgUrl = await uploadToCloudnary(event.target.files[0]);
     formik.setFieldValue("image", imgUrl);
     setSelectedImage(imgUrl);
     setUploadingImage(false);
@@ -105,6 +110,7 @@ const HomeSection = () => {
                 </div>
               </div>
             </form>
+            <div>{selectedImage && <img src={selectedImage} alt="" />}</div>
           </div>
         </div>
       </section>

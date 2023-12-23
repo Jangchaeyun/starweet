@@ -77,7 +77,7 @@ export const findUserById = (userId) => async (dispatch) => {
 
 export const updateUserProfile = (reqData) => async (dispatch) => {
   try {
-    const { data } = await api.put(`/api/users/update`, reqData);
+    const { data } = await api.put(`${API_BASE_URL}/api/users/update`, reqData);
     console.log("updated user ", data);
     dispatch({ type: UPDATE_USER_REQUEST, payload: data });
   } catch (error) {

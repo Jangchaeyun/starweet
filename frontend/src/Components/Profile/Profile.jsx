@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Avatar, Box, Button, Tab } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+import { useSelector, useDispatch } from "react-redux";
 
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import StarweetCard from "../HomeSection/StarweetCard";
 import ProfileModal from "./ProfileModal";
+import { findUserById } from "../../Store/Auth/Action";
 
 const Profile = () => {
   const [tabValue, setTabValue] = useState("1");
@@ -18,6 +20,9 @@ const Profile = () => {
   const [openProfileNodal, setOpenProfileModal] = useState(false);
   const handleOpenProfileModel = () => setOpenProfileModal(true);
   const handleClose = () => setOpenProfileModal(false);
+  const { auth } = useSelector((store) => store);
+  const dispatch = useDispatch();
+  const { id } = useParams();
   const handleBack = () => navigate(-1);
 
   const handleFollowUser = () => {
@@ -32,6 +37,10 @@ const Profile = () => {
       console.log("users starweet");
     }
   };
+
+  useEffect(() => {
+    dispatch(findUserById(id));
+  }, []);
   return (
     <div>
       <section
@@ -41,7 +50,9 @@ const Profile = () => {
           className="cursor-pointer"
           onClick={handleBack}
         />
-        <h1 className="py-5 text-xl font-bold opacity-90 ml-5">EVERYDAY6</h1>
+        <h1 className="py-5 text-xl font-bold opacity-90 ml-5">
+          {auth.user?.fullName}
+        </h1>
       </section>
 
       <section>
@@ -55,8 +66,8 @@ const Profile = () => {
         <div className="flex justify-between items-start mt-5 h-[5rem]">
           <Avatar
             className="transform -translate-y-24"
-            alt="EVERYDAY6"
-            src="https://file3.instiz.net/data/cached_img/upload/2019/08/02/2/cbb5df1bafd0642bee1ce64289520108.jpg"
+            alt=""
+            src={auth.user?.image}
             sx={{ width: "10rem", height: "10rem", border: "4px solid white" }}
           />
           {true ? (
@@ -82,7 +93,7 @@ const Profile = () => {
 
         <div>
           <div className="flex items-center">
-            <h1 className="font-bold text-lg">EVERYDAY6</h1>
+            <h1 className="font-bold text-lg">{auth.user?.fullName}</h1>
             {true && (
               <img
                 className="ml-2 w-5 h-5"
@@ -91,11 +102,13 @@ const Profile = () => {
               />
             )}
           </div>
-          <h1 className="text-gray-500">@everyday6</h1>
+          <h1 className="text-gray-500">
+            @{auth.user?.fullName.split(" ").join("_").toLowerCase()}
+          </h1>
         </div>
 
         <div className="mt-2 space-y-3">
-          <p>너와 나, 함께하는 이 순간 아름다운 '한 페이지가 될 수 있게'💑</p>
+          <p>{auth.user?.bio}</p>
           <div className="py-1 flex space-x-5">
             <div className="flex items-center text-gray-500">
               <BusinessCenterIcon />
@@ -103,7 +116,7 @@ const Profile = () => {
             </div>
             <div className="flex items-center text-gray-500">
               <LocationOnIcon />
-              <p className="ml-2">Bucheon City, South Korea</p>
+              <p className="ml-2">{auth.user?.location}</p>
             </div>
             <div className="flex items-center text-gray-500">
               <CalendarMonthIcon />
@@ -112,11 +125,11 @@ const Profile = () => {
           </div>
           <div className="flex items-center space-x-5">
             <div className="flex items-center space-x-1 font-semibold">
-              <span>44</span>
+              <span>{auth.user?.following.length}</span>
               <span className="text-gray-500">Following</span>
             </div>
             <div className="flex items-center space-x-1 font-semibold">
-              <span>2.2M</span>
+              <span>{auth.user?.followers.length}</span>
               <span className="text-gray-500">Followers</span>
             </div>
           </div>

@@ -6,6 +6,9 @@ import { useFormik } from "formik";
 import { Avatar, IconButton, TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import "./ProfileModal.css";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserProfile } from "../../Store/Auth/Action";
+import { uploadToCloudnary } from "../../Utils/uploadToCloudnary";
 
 const style = {
   position: "absolute",
@@ -24,9 +27,14 @@ const style = {
 export default function ProfileModal({ open, handleClose }) {
   // const [open, setOpen] = React.useState(false);
   const [uploading, setUploading] = React.useState(false);
+  const [selectedImage, setSelectedImage] = React.useState("");
+  const { auth } = useSelector((store) => store);
+  const dispatch = useDispatch();
 
   const handleSubmit = (values) => {
+    dispatch(updateUserProfile(values));
     console.log("handle submit", values);
+    setSelectedImage("");
   };
 
   const formik = useFormik({
@@ -41,13 +49,16 @@ export default function ProfileModal({ open, handleClose }) {
     onSubmit: handleSubmit,
   });
 
-  const handleImageChange = (event) => {
+  const handleImageChange = async (event) => {
     setUploading(true);
     const { name } = event.target;
-    const file = event.target.files[0];
+    const file = await uploadToCloudnary(event.target.files[0]);
     formik.setFieldValue(name, file);
+    setSelectedImage(file);
     setUploading(false);
   };
+
+  console.log("auth", auth);
 
   return (
     <div>
@@ -93,7 +104,11 @@ export default function ProfileModal({ open, handleClose }) {
                         height: "10rem",
                         border: "4px solid white",
                       }}
-                      src="https://file3.instiz.net/data/cached_img/upload/2019/08/02/2/cbb5df1bafd0642bee1ce64289520108.jpg"
+                      src={
+                        selectedImage ||
+                        auth.user?.image ||
+                        "https://file3.instiz.net/data/cached_img/upload/2019/08/02/2/cbb5df1bafd0642bee1ce64289520108.jpg"
+                      }
                     />
                     <input
                       type="file"

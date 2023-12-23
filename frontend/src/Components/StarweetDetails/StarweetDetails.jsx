@@ -37,7 +37,7 @@ const StarweetDetails = () => {
       </section>
 
       <section>
-        {starweet.starweet.replyStarweets.map((item) => (
+        {starweet.starweet?.replyStarweets.map((item) => (
           <StarweetCard item={item} />
         ))}
       </section>
