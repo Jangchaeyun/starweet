@@ -12,7 +12,12 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import StarweetCard from "../HomeSection/StarweetCard";
 import ProfileModal from "./ProfileModal";
-import { findUserById } from "../../Store/Auth/Action";
+import {
+  findUserById,
+  followUserAction,
+  getUserProfile,
+} from "../../Store/Auth/Action";
+import { getUserStarweet } from "../../Store/Starweet/Action";
 
 const Profile = () => {
   const [tabValue, setTabValue] = useState("1");
@@ -20,12 +25,13 @@ const Profile = () => {
   const [openProfileNodal, setOpenProfileModal] = useState(false);
   const handleOpenProfileModel = () => setOpenProfileModal(true);
   const handleClose = () => setOpenProfileModal(false);
-  const { auth } = useSelector((store) => store);
+  const { auth, starweet } = useSelector((store) => store);
   const dispatch = useDispatch();
   const { id } = useParams();
   const handleBack = () => navigate(-1);
 
   const handleFollowUser = () => {
+    dispatch(followUserAction(id));
     console.log("follow user");
   };
   const handleTabChange = (event, newValue) => {
@@ -40,7 +46,8 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(findUserById(id));
-  }, []);
+    dispatch(getUserStarweet(id));
+  }, [id]);
   return (
     <div>
       <section
@@ -51,7 +58,7 @@ const Profile = () => {
           onClick={handleBack}
         />
         <h1 className="py-5 text-xl font-bold opacity-90 ml-5">
-          {auth.user?.fullName}
+          {auth.findUser?.fullName}
         </h1>
       </section>
 
@@ -67,10 +74,10 @@ const Profile = () => {
           <Avatar
             className="transform -translate-y-24"
             alt=""
-            src={auth.user?.image}
+            src={auth.findUser?.image}
             sx={{ width: "10rem", height: "10rem", border: "4px solid white" }}
           />
-          {true ? (
+          {auth.findUser?.req_user ? (
             <Button
               onClick={handleOpenProfileModel}
               className="rounded-full"
@@ -86,14 +93,14 @@ const Profile = () => {
               variant="contained"
               sx={{ borderRadius: "20px" }}
             >
-              {true ? "Follow" : "Unfollow"}
+              {auth.findUser?.followed ? "UnFollow" : "follow"}
             </Button>
           )}
         </div>
 
         <div>
           <div className="flex items-center">
-            <h1 className="font-bold text-lg">{auth.user?.fullName}</h1>
+            <h1 className="font-bold text-lg">{auth.findUser?.fullName}</h1>
             {true && (
               <img
                 className="ml-2 w-5 h-5"
@@ -103,12 +110,12 @@ const Profile = () => {
             )}
           </div>
           <h1 className="text-gray-500">
-            @{auth.user?.fullName.split(" ").join("_").toLowerCase()}
+            @{auth.findUser?.fullName.split(" ").join("_").toLowerCase()}
           </h1>
         </div>
 
         <div className="mt-2 space-y-3">
-          <p>{auth.user?.bio}</p>
+          <p>{auth.findUser?.bio}</p>
           <div className="py-1 flex space-x-5">
             <div className="flex items-center text-gray-500">
               <BusinessCenterIcon />
@@ -116,7 +123,7 @@ const Profile = () => {
             </div>
             <div className="flex items-center text-gray-500">
               <LocationOnIcon />
-              <p className="ml-2">{auth.user?.location}</p>
+              <p className="ml-2">{auth.findUser?.location}</p>
             </div>
             <div className="flex items-center text-gray-500">
               <CalendarMonthIcon />
@@ -125,11 +132,11 @@ const Profile = () => {
           </div>
           <div className="flex items-center space-x-5">
             <div className="flex items-center space-x-1 font-semibold">
-              <span>{auth.user?.following.length}</span>
+              <span>{auth.findUser?.following.length}</span>
               <span className="text-gray-500">Following</span>
             </div>
             <div className="flex items-center space-x-1 font-semibold">
-              <span>{auth.user?.followers.length}</span>
+              <span>{auth.findUser?.followers.length}</span>
               <span className="text-gray-500">Followers</span>
             </div>
           </div>
@@ -151,8 +158,8 @@ const Profile = () => {
               </TabList>
             </Box>
             <TabPanel value="1">
-              {[1, 1, 1, 1].map((item) => (
-                <StarweetCard />
+              {starweet.starweets.map((item) => (
+                <StarweetCard item={item} />
               ))}
             </TabPanel>
             <TabPanel value="2">Replies</TabPanel>

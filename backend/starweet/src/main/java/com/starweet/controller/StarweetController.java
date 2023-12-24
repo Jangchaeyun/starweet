@@ -88,6 +88,7 @@ public class StarweetController {
 
         return new ResponseEntity<>(starweetDtos, HttpStatus.OK);
     }
+
     @GetMapping("/user/{userId}/likes")
     public ResponseEntity<List<StarweetDto>> findStarweetByLikesContainesUser(@PathVariable Long userId, @RequestHeader("Authorization") String jwt) throws UserException, StarweetException {
         User user = userService.findUserProfileByJwt(jwt);
